@@ -52,6 +52,25 @@ When using Yocto/bitbake, you may open a devshell (`bitbake -c devshell core-ima
 like this:
 
     printenv | grep arm-angstrom-linux-gnueabi
- 
-Frank
 
+## Adding Dependencies ##
+
+Let's say your program requires OpenCV. 
+
+in configure.ac add two lines:
+
+    AC_PROG_CXX
+    PKG_CHECK_MODULES([OPENCV],[opencv])
+
+The first line enables the C++ compiler and the second line obviously declares the dependency to OpenCV.
+
+in the src/Makefile.am add two lines:
+
+    AM_CPPFLAGS = $(OPENCV_CFLAGS)
+    hello_LDADD = $OPENCV_LIBS)
+
+## Further Reading ##
+
+"Autotools Mythbuster"; https://autotools.io
+
+Frank
